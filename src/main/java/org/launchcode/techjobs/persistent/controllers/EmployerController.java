@@ -13,10 +13,16 @@ import java.util.Optional;
 
 @Controller
 @RequestMapping("employers")
-public class EmployerController {
+public abstract class EmployerController implements EmployerRepository {
 
     @Autowired
     private EmployerRepository employerRepository;
+
+    @GetMapping("employers")
+    public String displayAllEmployers(Model model, @ModelAttribute Employer employer){
+//        model.addAttribute("index",);
+        return "employers/index";
+    }
 
 
     @GetMapping("add")
