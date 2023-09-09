@@ -18,9 +18,9 @@ public abstract class EmployerController implements EmployerRepository {
     @Autowired
     private EmployerRepository employerRepository;
 
-    @GetMapping("employers")
-    public String displayAllEmployers(Model model, @ModelAttribute Employer employer){
-//        model.addAttribute("index",);
+    @GetMapping()
+    public String displayAllEmployers(Model model){
+        model.addAttribute("employers",employerRepository.findAll());
         return "employers/index";
     }
 
