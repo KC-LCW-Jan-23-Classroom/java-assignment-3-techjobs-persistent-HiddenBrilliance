@@ -19,7 +19,7 @@ public abstract class EmployerController implements EmployerRepository {
     private EmployerRepository employerRepository;
 
     @GetMapping()
-    public String displayAllEmployers(Model model){
+    public String employerIndex(Model model){
         model.addAttribute("employers",employerRepository.findAll());
         return "employers/index";
     }
@@ -39,13 +39,16 @@ public abstract class EmployerController implements EmployerRepository {
             return "employers/add";
         }
 
+        employerRepository.save(newEmployer);
         return "redirect:";
     }
+
+
 
     @GetMapping("view/{employerId}")
     public String displayViewEmployer(Model model, @PathVariable int employerId) {
 
-        Optional optEmployer = null;
+        Optional optEmployer = employerRepository.findById(employerId);
         if (optEmployer.isPresent()) {
             Employer employer = (Employer) optEmployer.get();
             model.addAttribute("employer", employer);
