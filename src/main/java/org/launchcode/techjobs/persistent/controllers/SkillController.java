@@ -14,13 +14,13 @@ import java.util.Optional;
 
 @Controller
 @RequestMapping("skills")
-public abstract class SkillController implements SkillRepository {
+public class SkillController {
 
     @Autowired
     private SkillRepository skillRepository;
 
-    @GetMapping()
-    public String skillIndex(Model model){
+    @GetMapping("")
+    public String index(Model model){
         model.addAttribute("employers",skillRepository.findAll());
         return "skills/index";
     }
@@ -36,9 +36,12 @@ public abstract class SkillController implements SkillRepository {
                                          Errors errors, Model model) {
 
         if (errors.hasErrors()) {
+            model.addAttribute("skill", "Add new skill");
+            model.addAttribute(new Employer());
             return "employers/add";
         }
 
+        model.addAttribute(new Skill());
         skillRepository.save(newSkill);
         return "redirect:";
     }

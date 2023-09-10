@@ -13,14 +13,16 @@ import java.util.Optional;
 
 @Controller
 @RequestMapping("employers")
-public abstract class EmployerController implements EmployerRepository {
+public class EmployerController{
 
     @Autowired
     private EmployerRepository employerRepository;
 
-    @GetMapping()
-    public String employerIndex(Model model){
-        model.addAttribute("employers",employerRepository.findAll());
+    @GetMapping("")
+    public String index(Model model){
+        model.addAttribute("title", "index");
+        model.addAttribute( employerRepository.findAll());
+
         return "employers/index";
     }
 
@@ -36,9 +38,13 @@ public abstract class EmployerController implements EmployerRepository {
                                     Errors errors, Model model) {
 
         if (errors.hasErrors()) {
+            model.addAttribute("employer", "Add new employer");
+            model.addAttribute(new Employer());
+
             return "employers/add";
         }
 
+        model.addAttribute(new Employer());
         employerRepository.save(newEmployer);
         return "redirect:";
     }
