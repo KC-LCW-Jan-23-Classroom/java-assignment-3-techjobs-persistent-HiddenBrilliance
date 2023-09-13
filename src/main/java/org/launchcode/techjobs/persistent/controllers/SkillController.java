@@ -37,14 +37,16 @@ public class SkillController {
 
         if (errors.hasErrors()) {
             model.addAttribute("skill", "Add new skill");
-            model.addAttribute(new Employer());
-            return "employers/add";
+            model.addAttribute(new Skill());
+            return "skills/add";
         }
 
         model.addAttribute(new Skill());
         skillRepository.save(newSkill);
         return "redirect:";
     }
+
+
 
 
     @GetMapping("view/{skillId}")
@@ -54,7 +56,7 @@ public class SkillController {
         if (optSkill.isPresent()) {
             Skill skill = (Skill) optSkill.get();
             model.addAttribute("skill", skill);
-            return "skill/view";
+            return "skills/view";
         } else {
             return "redirect:../";
         }
