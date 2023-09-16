@@ -21,7 +21,7 @@ public class SkillController {
 
     @GetMapping("")
     public String index(Model model){
-        model.addAttribute("employers",skillRepository.findAll());
+        model.addAttribute("skills", skillRepository.findAll() );
         return "skills/index";
     }
 
@@ -36,7 +36,7 @@ public class SkillController {
                                          Errors errors, Model model) {
 
         if (errors.hasErrors()) {
-            model.addAttribute("skill", "Add new skill");
+            model.addAttribute("skills", "Add new skill");
             model.addAttribute(new Skill());
             return "skills/add";
         }

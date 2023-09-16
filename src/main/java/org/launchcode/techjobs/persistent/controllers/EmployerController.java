@@ -20,9 +20,7 @@ public class EmployerController{
 
     @GetMapping("")
     public String index(Model model){
-        model.addAttribute("title", "employers");
-        model.addAttribute( employerRepository.findAll());
-
+        model.addAttribute("employers", employerRepository.findAll());
         return "employers/index";
     }
 
